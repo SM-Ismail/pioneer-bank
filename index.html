@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pioneer Bank</title>
+    
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-area">
+        <h1 class="text-center">WELCOME TO PIONEER BANK</h1>
+        <div class="submit-area">
+            <h4>Login</h4>
+            <input type="email" class="form-control" id="" placeholder="Email">
+            <br>
+            <input type="password" class="form-control" id="" placeholder="Password">
+            <br>
+            <button class="btn btn-warning btn-lg">Enter</button>
+        </div>
+        
+    </div>
+    <div id="transaction-area">
+        <h2>TRANSACTION AREA</h2>
+        <div class="row mainRow">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="currentDeposit">00</span></h2>
+                </div>
+                
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$ <span id="currentWithdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="currentBalance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Deposit</h4>
+                    <br>
+                    <input id="deposit-amount" class="form-control" type="text" placeholder="$ to deposit">
+                    <br>
+                    <button id="deposit-button" class="btn btn-warning">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Withdraw</h4>
+                    <br>
+                    <input id="withdraw-amount" class="form-control" type="text" placeholder="$ to withdraw">
+                    <br>
+                    <button id="withdraw-button" class="btn btn-warning">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //login event handler
+        document.getElementById('login-area').addEventListener('click', function(){
+            document.getElementById('login-area').style.display = "none";
+            document.getElementById('transaction-area').style.display = "block";
+        })
+        //deposit event handler
+        document.getElementById('deposit-button').addEventListener('click', function(){
+            const depositNumber = getInputAmount('deposit-amount');
+            updateSpanText('currentDeposit', depositNumber);
+            updateSpanText('currentBalance', depositNumber);
+            document.getElementById('deposit-amount').value="";
+        })
+        //withdraw event handler
+        document.getElementById('withdraw-button').addEventListener('click', function(){
+            const withdrawNumber = getInputAmount('withdraw-amount');
+            updateSpanText('currentWithdraw', withdrawNumber);
+            updateSpanText('currentBalance', -1*withdrawNumber);
+            document.getElementById('withdraw-amount').value="";
+        })
+        
+        function getInputAmount(id){
+            var amount = document.getElementById(id).value;
+            var amountNumber = parseFloat(amount);
+            return amountNumber;
+        }
+        function updateSpanText(id, addedNumber){
+                var current = document.getElementById(id).innerText;
+                var currentNumber = parseFloat(current);
+                var totalAmount = currentNumber+addedNumber;
+
+                document.getElementById(id).innerText=totalAmount;
+            }
+    </script>
+
+</body>
+
+</html>
